@@ -1,0 +1,47 @@
+import { NativeEventEmitter, Platform } from 'react-native';
+import type { EmitterSubscription } from 'react-native';
+
+import Native<%= name %> from './Native<%= name %>';
+
+interface MyModuleEvents {
+  onDataReceived: ( string) => void;
+}
+
+const isTurboModuleEnabled = global.__turboModuleProxy != null;
+
+const <%= name %> = isTurboModuleEnabled
+  ? require('./Native<%= name %>').default
+  : require('./<%= name %>').default;
+
+const EventEmitter = new NativeEventEmitter(Native<%= name %>);
+
+// Export methods
+<% methods.split(',').filter(m => m.trim()).forEach(method => { %>
+export const <%= method.trim() %> = async (args: Record<string, any> = {}) => {
+  if (!<%= name %>) {
+    throw new Error('<%= name %> module not available');
+  }
+  return await <%= name %>.<%= method.trim() %>(args);
+};
+<% }); %>
+
+// Constants
+<% if (constant) { %>
+export const getConstants = () => {
+  return <%= name %>.getConstants();
+};
+<% } %>
+
+// Events (optional)
+export const addListener = <K extends keyof MyModuleEvents>(
+  eventType: K,
+  callback: MyModuleEvents[K]
+): EmitterSubscription => {
+  return EventEmitter.addListener(eventType, callback);
+};
+
+export const removeListeners = (count: number) => {
+  EventEmitter.removeListeners(count);
+};
+
+export default <%= name %>;

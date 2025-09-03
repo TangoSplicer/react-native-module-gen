@@ -1,0 +1,47 @@
+import Foundation
+import UIKit
+import React
+
+@objc(<%= name %>)
+class <%= name %>: RCTView {
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupView()
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    setupView()
+  }
+  
+  private func setupView() {
+    backgroundColor = .clear
+    // Custom UI setup
+  }
+
+  // MARK: - Props
+  
+<% props.split(',').filter(p => p.trim()).forEach(prop => { %>
+  @objc func set<%= prop.trim().split(':')[0] %>(value: <% const type = prop.trim().split(':')[1] || 'string';
+    if (type === 'number') { %>
+    NSNumber? <% } else if (type === 'boolean') { %>
+    Bool <% } else { %>
+    String? <% } %>
+  ) {
+    // Handle prop update
+  }
+<% }); %>
+
+  // MARK: - Events
+  
+<% events.split(',').filter(e => e.trim()).forEach(event => { %>
+  @objc func on<%= event.trim() %>Event(_ body: [AnyHashable: Any]?) {
+    sendEvent(
+      reactTag: reactTag,
+      eventName: "<%= event.trim() %>",
+      body: body
+    )
+  }
+<% }); %>
+}

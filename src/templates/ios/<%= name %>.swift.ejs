@@ -1,0 +1,24 @@
+import Foundation
+
+@objc(<%= name %>)
+class <%= name %>: NSObject {
+
+  @objc
+  static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
+  // Example method
+<% methods.split(',').filter(m => m.trim()).forEach(method => { %>
+  @objc func <%= method.trim() %>(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+    resolve("Method <%= method.trim() %> called")
+  }
+<% }); %>
+
+<% if (constant) { %>
+  @objc
+  func constantsToExport() -> [AnyHashable : Any]! {
+    return ["key": "value"]
+  }
+<% } %>
+}

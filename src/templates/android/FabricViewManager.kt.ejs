@@ -1,0 +1,35 @@
+package com.yourapp.<%= name.toLowerCase() %>
+
+import com.facebook.proguard.annotations.DoNotStrip
+import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.common.MapBuilder
+import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.uimanager.SimpleViewManager
+import com.facebook.react.views.view.ReactViewGroup
+
+@DoNotStrip
+class <%= name %>Manager : SimpleViewManager<ReactViewGroup>() {
+
+  companion object {
+    const val NAME = "Native<%= name %>"
+  }
+
+  override fun getName() = NAME
+
+  override fun createViewInstance(context: ThemedReactContext): ReactViewGroup {
+    return ReactViewGroup(context).apply {
+      // Initialize custom view
+    }
+  }
+
+<% props.split(',').filter(p => p.trim()).forEach(prop => { %>
+  @ReactProp(name = "<%= prop.trim().split(':')[0] %>")
+  fun set<%= prop.trim().split(':')[0] %>(view: ReactViewGroup, value: <% 
+    const type = prop.trim().split(':')[1] || 'string'
+    if (type === 'number') { %>Double?<% } else if (type === 'boolean') { %>Boolean<% } else { %>String?<% } %>
+  ) {
+    // Handle prop
+  }
+<% }); %>
+}

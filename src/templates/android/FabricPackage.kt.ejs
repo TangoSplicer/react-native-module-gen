@@ -1,0 +1,17 @@
+package com.yourapp.<%= name.toLowerCase() %>
+
+import com.facebook.react.ReactPackage
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.uimanager.ViewManager
+
+class <%= name %>Package : ReactPackage {
+  override fun createViewManagers(
+    context: ReactApplicationContext
+  ): MutableList<ViewManager<*, *>> {
+    return mutableListOf(<%= name %>Manager())
+  }
+
+  override fun createNativeModules(
+    reactContext: ReactApplicationContext
+  ): MutableList<NativeModule> = mutableListOf()
+}

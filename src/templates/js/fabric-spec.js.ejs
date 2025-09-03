@@ -1,0 +1,33 @@
+/**
+ * @generated SignedSource<<%= hash %>>
+ */
+
+'use strict';
+
+const codegenNativeComponent = require('react-native/Libraries/Codegen/NativeComponent';
+
+type Frame = {|
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+|};
+
+type EdgeInsets = {|
+  top: number,
+  left: number,
+  right: number,
+  bottom: number,
+|};
+
+interface NativeProps {
+  <%- props.split(',').filter(p => p.trim()).map(p => {
+    const [name, type] = p.trim().split(':');
+    return `${name}: ${type || 'string'}`;
+  }).join('\n  ') %>
+}
+
+export default codegenNativeComponent<NativeProps>('MapView', {
+  interfaceOnly: false,
+  paperComponentName: 'RCTMapView',
+});

@@ -1,0 +1,26 @@
+package com.yourapp.<%= name.toLowerCase() %>
+
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReactContextBaseJavaModule
+import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.turbomodule.core.interfaces.TurboModule
+import com.facebook.react.uimanager.UIManagerModule
+import com.facebook.react.bridge.WritableNativeMap
+
+<% methods.split(',').filter(m => m.trim()).forEach(method => { %>
+@ReactMethod
+fun <%= method.trim() %>(args: ReadableMap, promise: Promise) {
+  try {
+    promise.resolve("Method <%= method.trim() %> called")
+  } catch (e: Exception) {
+    promise.reject("<%= method.trim() %>_error", e)
+  }
+}
+<% }); %>
+
+<% if (constant) { %>
+override fun getConstants(): MutableMap<String, Any> {
+  return hashMapOf("key" to "value")
+}
+<% } %>

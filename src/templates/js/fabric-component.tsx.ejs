@@ -1,0 +1,32 @@
+import type { ViewProps } from 'react-native';
+import type { HostComponent } from 'react-native';
+import type { DirectEventHandler, BubblingEventHandler } from 'react-native/Libraries/Types/Codegen';
+
+import codegenNativeComponent from 'react-native/Libraries/Codegen/NativeComponent';
+import Native<%= name %> from './Native<%= name %>';
+import PropTypes from 'prop-types';
+import { requireNativeComponent } from 'react-native';
+
+// Types
+export interface <%= name %>Props extends ViewProps {
+  <%- props.split(',').filter(p => p.trim()).map(p => {
+    const [name, type] = p.trim().split(':');
+    return `${name}?: ${type === 'number' ? 'number' : type === 'boolean' ? 'boolean' : 'string'};`;
+  }).join('\n  ') %>
+
+  // Events
+  <% events.split(',').filter(e => e.trim()).forEach(event => { %>
+  <%= event.trim() %>?: DirectEventHandler<{}>
+  <% }); %>
+}
+
+// Fabric Component
+const <%= name %>Component =
+  codegenNativeComponent<%= name %>Props>('Native<%= name %>') as HostComponent<<%= name %>Props>;
+
+// Legacy fallback (optional)
+const <%= name %>Legacy = requireNativeComponent('Native<%= name %>');
+
+export default function <%= name %>(props: <%= name %>Props) {
+  return <Native<%= name %>Component {...props} />;
+}
