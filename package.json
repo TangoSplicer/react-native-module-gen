@@ -23,19 +23,25 @@
     "native",
     "generator"
   ],
-  "author": "Your Name <you@example.com>",
+  "author": {
+    "name": "Your Name",
+    "email": "you@example.com",
+    "url": "https://github.com/your-username"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/react-native-module-gen.git"
+    "url": "https://github.com/TangoSplicer/react-native-module-gen.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/react-native-module-gen/issues"
+    "url": "https://github.com/TangoSplicer/react-native-module-gen/issues"
   },
-  "homepage": "https://github.com/your-username/react-native-module-gen#readme",
+  "homepage": "https://github.com/TangoSplicer/react-native-module-gen#readme",
   "files": [
     "bin/",
-    "src/"
+    "src/",
+    "README.md",
+    "LICENSE"
   ],
   "dependencies": {
     "commander": "^11.0.0",
