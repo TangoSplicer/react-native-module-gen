@@ -1,0 +1,50 @@
+{
+  "name": "react-native-module-gen",
+  "version": "0.2.0",
+  "description": "CLI to generate Turbo Native Modules and Fabric Components for React Native 0.79.5+",
+  "main": "src/index.js",
+  "bin": {
+    "react-native-module-gen": "bin/cli.js",
+    "rn-module-gen": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "node __tests__/basic.test.js",
+    "lint": "eslint src/ __tests__/",
+    "format": "prettier --write \"**/*.js\"",
+    "prepublishOnly": "npm test && npm run lint"
+  },
+  "keywords": [
+    "react-native",
+    "cli",
+    "turbo",
+    "module",
+    "codegen",
+    "fabric",
+    "native",
+    "generator"
+  ],
+  "author": "Your Name <you@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/react-native-module-gen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/react-native-module-gen/issues"
+  },
+  "homepage": "https://github.com/your-username/react-native-module-gen#readme",
+  "files": [
+    "bin/",
+    "src/"
+  ],
+  "dependencies": {
+    "commander": "^11.0.0",
+    "chalk": "^4.1.2",
+    "ejs": "^3.1.10"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "eslint-config-prettier": "^9.0.0"
+  }
+}
